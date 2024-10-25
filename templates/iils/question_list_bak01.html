@@ -1,0 +1,46 @@
+<!--{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">-->
+
+<!--{% if question_list %}
+    <ul>
+    {% for question in question_list %}-->
+        <!--<li><a href="/iils/{{ question.id }}/">{{ question.subject }}</a></li>
+        <li><a href="{% url 'iils:detail' question.id %}">{{ question.subject }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>질문이 없습니다.</p>
+{% endif %}-->
+
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="text-center table-dark">
+            <th> 번  호 </th>
+            <th>    제       목     </th>
+            <th> 작 성 일 시 </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if question_list %}
+        {% for question in question_list %}
+        <tr>
+            <td class="text-center" >{{ forloop.counter }}</td>
+            <td>
+                <a href="{% url 'iils:detail' question.id %}">{{ question.subject }}</a>
+            </td>
+            <td class="text-center">{{ question.create_date }}</td>
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr>
+            <td colspan="3">질문이 없습니다.</td>
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+    <a href="{% url 'iils:question_create' %}" class="btn btn-primary">질문 등록하기</a>
+</div>
+{% endblock %}

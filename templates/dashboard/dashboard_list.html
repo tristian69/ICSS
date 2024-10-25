@@ -1,0 +1,60 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<style>
+    @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+    body{
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+    .wrap{
+        display: flex;
+        justify-content: row;
+        gap:16px;
+        flex-wrap: wrap;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex:21%;
+        gap:24px;
+        border: 1px solid #EBEAEC;
+        box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+        border-radius: 16px;
+        padding: 24px;
+    }
+    .top{
+        font-weight:bold;
+        font-size:16px;
+    }
+    .bottom .name{
+        font-size:13px;
+        color:#727174;
+    }
+    .botton .date{
+        font-size:12px;
+        color:#B4B4B6;
+    }
+</style>
+
+<h5 class="text-centere"> 대시보드 테스트 </h5>
+<a href="{% url 'dashboard:detail'%}"  class="btn btn-primary">>> 자세히</a>
+
+<div class="wrap">
+    {% for i in data%}
+    <div class="container">
+        <div class="top">
+            <div>HS10단위부호 : {{i.1}}</div>
+        </div>
+        <div class="bottom">
+            <div>세번2단위품명 : , 세번4단위품명 : , 세번6단위품명 : , 세번10단위품명 : </div>
+            <div> : {{i.2}}, : {{i.3}}, : {{i.4}} , : {{i.5}} </div>
+            <div> 관세청 신성질별 분류</div>
+            <div>대분류 코드: , 중분류 코드 : , 소분류 코드 : , 세분류 코드 : </div>
+            <div> : {{i.6}}, : {{i.8}}, : {{i.10}} , : {{i.12}} </div>
+        </div>
+    </div>
+    {% endfor%}
+
+</div>
+{% endblock %}

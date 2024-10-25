@@ -1,0 +1,66 @@
+<!-- 네비게이션바 -->
+<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+    <div class="container-fluid">
+        <button class="navbar-toggler" type="button"
+                data-bs-toggle="collapse"
+                data-bs-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent"
+                aria-expanded="false"
+                aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link active" aria-current="page" href="{% url 'iils:index' %}"> Home </a>
+                </li>
+                <li class="nav-item">
+                    {% if user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'common:logout' %}">{{ user.username }} ( 로그아웃 ) </a>
+                    {% else %}
+                    <a class="nav-link" href="{% url 'common:login' %}"> 로그인 </a>
+                    {% endif %}
+                </li>
+                <li>
+                    {% if not user.is_authenticated %}
+                    <a class="nav-link" href="{% url 'common:signup' %}"> 회원가입 </a>
+                    {% endif %}
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'api_gateway:index'%}" class="btn btn-primary"> API연동 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'dashboard:index'%}" class="btn btn-primary"> 수출입품목 HSK </a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'monitoring:index'%}" class="btn btn-primary"> 모니터링 </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{% url 'mapping:index'%}" class="btn btn-primary"> 지도보기 </a>
+                </li>
+                 <li class="nav-item">
+                    <a class="nav-link" href="{% url 'report:index'%}" class="btn btn-primary"> 보고서 </a>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        연관기관</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="https://kats.go.kr/main.do" target="_blank">국가기술표준원</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="https://gpck.kr/tree/classification.cs?m=58" target="_blank">제품분류표준코드</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="https://data.go.kr" target="_blank">공공데이터포털</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="https://www.foodsafetykorea.go.kr" target="_blank">식품안전나라</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="https://e-ks.kr" target="_blank">나라인증표준</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                        <li><a class="dropdown-item" href="https://www.ksnara.or.kr" target="_blank">KS인증기관협의회</a></li>
+                        <li><hr class="dropdown-divider"></li>
+                    </ul>
+                </li>
+
+            </ul>
+        </div>
+    </div>
+</nav>

@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<h5 class = "text-center"> 공공데이터포탈 지도 연동 : 전기차 충전소  지역별 현황 </h5>
+<p class="card-text"> 지역명 : 경상남도 </p>
+<a href="{% url 'mapping:detail'%}" class="btn btn-primary">>> 자세히</a>
+
+<div class="wrap">
+    {% for i in data%}
+    <div class="container">
+        <div class="top">
+            <div>충전소명 : {{i.0}}</div>
+        </div>
+        <div class="bottom">
+            <div>경도 : {{i.6}} , 위도 : {{i.5}}</div>
+        </div>
+    </div>
+    {% endfor%}
+
+</div>
+
+{% endblock %}

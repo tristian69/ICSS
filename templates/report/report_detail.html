@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1>{{ report.subject }}</h1>
+<div>
+    {{ report.content }}
+</div>
+<h5>{{ report.report_set.count }} 개의 보고서가 있습니다.</h5>
+<div>
+    <ul>
+    {% for report in report.report_set.all %}
+        <li>{{ report.content }}</li>
+    {% endfor %}
+    </ul>
+</div>
+<form action="{% url 'report:detail' %}" method="post">
+{% csrf_token %}
+<textarea name="content" id="content" rows="15"></textarea>
+<input type="submit" value=" 보고서 등록">
+</form>
+{% endblock %}

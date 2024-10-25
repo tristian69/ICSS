@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>표준제품분류체계 통합정보플랫폼</title>
+    <!-- 반응형 웹 만들기 -->
+    <!-- 1. 모바일용 css -->
+    <link rel="stylesheet" href="./ks_gpc_total_platform_mobile.css" media="(max-width:600px)">
+
+    <!-- 2. 데스크탑용 외부 스타일시트 적용 -->
+    <link rel="stylesheet" href="./ks_gpc_total_platform.css" media="(min-width:600px)">
+
+    <!-- <link rel="stylesheet" href="https://pyscript.net/alpha/pyscript.css" /> -->
+    <script defer src="https://pyscript.net/alpha/pyscript.js"></script>
+
+    <py-env>
+    - paths:
+    - ./utils.py
+    - utils
+    - asyncio
+    - datetime
+    - pprint
+    - xml
+    - json
+    - pandas
+    - bs4
+    - time
+    - aspose.cells
+    - numpy
+    - xml.etree.ElementTree
+    - warnings
+    - os 
+    - name
+    - lxml 
+    - html
+    - urllib.parse 
+    - urlencode
+    - quote_plus
+    - unquote
+
+    </py-env>
+
+
+</head>
+<body>
+    <div id="page">
+    
+        <header>
+            <div id="title">
+                <h1> 표준제품분류체계 통합정보플랫폼 </h1>                
+            </div>
+
+            <div id="top_menu">
+                <a href="ks_gpc_total_platform.html">HOME</a> | 
+                <a href="#">NOTICE</a> |
+                <a href="#">LOGIN</a> |
+                <a href="#">JOIN</a>
+            </div>
+
+            <nav>
+                <ul>
+                    <li><a href="platform.html">플랫폼소개</a></li>
+                    <li><a href="http://gpck.kr/tree/classification.cs?m=58">제품검색</a></li>
+                    <li><a href="ks_gps_hsk.html">수출입정보</a></li>
+                    <li><a href="#">안전정보</a></li>
+                    <li><a href="#">위해정보</a></li>
+                </ul>
+            </nav>
+
+        </header>
+
+        <div >js clock time: <label id="jsClock"></label></div>
+        <div >py clock time: <label id="pyClock"></label></div>
+
+        <py-script> 
+
+            import utils
+            import asyncio
+
+            async def foo():
+                while True:
+                    await asyncio.sleep(1)
+                    output = utils.now()
+                    pyscript.write("pyClock", output)
+            pyscript.run_until_complete(foo())
+
+            import requests
+import pprint
+import xml
+import json
+import pandas as pd
+import bs4
+import datetime as dt
+import time
+import  aspose.cells 
+import numpy as np
+import xml.etree.ElementTree as ET
+
+import warnings
+warnings.filterwarnings('ignore')
+
+
+from aspose.cells import Workbook
+
+url = 'http://apis.data.go.kr/1220000/nitemtrade/getNitemtradeList?strtYymm=202302&endYymm=202401&hsSgn=1001999090&cntyCd=US&serviceKey=diUBgK2%2Bo8yKd9Ki8Fl2h6GNrzg%2B0guxZ0TDHh%2FhZs0xwT6wg4iDIhSRw9Yy6z%2FBqzX76zT%2FmycLL9P6gSNppQ%3D%3D'
+params ={'serviceKey' : '서비스키', 'strtYymm' : '202302', 'endYymm' : '202401', 'hsSgn' : '1001999090', 'cntyCd' : 'US' }
+
+response = requests.get(url, params=params)
+status = response.status_code
+
+print(response.content)
+
+contents = response.text
+root = ET.fromstring(response.text)
+result = ''
+for str in root.iter('str'):
+    if(str.attrib.get('name')=='status'):
+        result = str.text
+print (result)
+
+## 보다 예쁘게 출력하기 위해..
+##  indent는 들여쓴다는 의미
+pp = pprint.PrettyPrinter(indent=4)
+print(pp.pprint(contents))
+
+### xml을 DataFrame으로 변환하기 ###
+from os import name
+
+from lxml import html
+from urllib.parse import urlencode, quote_plus, unquote
+
+## 각 컬럼 값 ## (포털 문서에서 꼭 확인하세요)
+"""       """
+
+xml_obj = bs4.BeautifulSoup(response.text,'lxml-xml')
+rows = xml_obj.findAll('item')
+print(rows)
+
+# 각 행의 컬럼, 이름, 값을 가지는 리스트 만들기
+row_list = [] # 행값
+name_list = [] # 열이름값
+value_list = [] #데이터값
+
+# xml 안의 데이터 수집
+for i in range(0, len(rows)):
+    columns = rows[i].find_all()
+    #첫째 행 데이터 수집
+    for j in range(0,len(columns)):
+        if i ==0:
+            # 컬럼 이름 값 저장
+            name_list.append(columns[j].name)
+        # 컬럼의 각 데이터 값 저장
+        value_list.append(columns[j].text)
+    # 각 행의 value값 전체 저장
+    row_list.append(value_list)
+    # 데이터 리스트 값 초기화
+    value_list=[]
+
+#xml값 DataFrame으로 만들기
+hsk_df = pd.DataFrame(row_list, columns=name_list)
+###assertion error의 경우###
+hsk_df = pd.DataFrame(row_list)
+hsk_df.head(19)) 
+
+#DataFrame CSV 파일로 저장
+hsk_df.to_csv('hsk_test_1.csv', encoding='utf-8-sig')
+
+        </py-script>
+    </div>
+</body>
+</html>
+
+<script>
+    setInterval(()=>{
+    var timer = new Date();
+    var h = timer.getHours();
+    var m = timer.getMinutes();
+    var s = timer.getSeconds();
+    document.getElementById('jsClock').innerHTML = `${h} : ${m} : ${s}`;
+    },1000);
+</script>

@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container my-3">
+    <table class="table">
+        <thead>
+        <tr class="text-center table-dark">
+            <th> 번  호 </th>
+            <th> 제  목 </th>
+            <th> 작 성 자 </th>
+            <th> 작 성 일 시 </th>
+        </tr>
+        </thead>
+        <tbody>
+        {% if report_list %}
+        {% for report in report_list %}
+        <li><a href="{% url 'detail' report.id }}/">{{ report.subject }}</a></li>
+        <img src = "logo_slogan.png" alt = "Company Logo">
+
+        {% endfor %}
+        {% else %}
+        <tr>
+
+        </tr>
+        {% endif %}
+        </tbody>
+    </table>
+
+    <a href = "{% url 'report:report_create' %}" class="btn btn-primary"> Administration </a>
+    <a href = "{% url 'report:report_create' %}" class="btn btn-primary"> 등록하기 </a>
+    <a href = "{% url 'report:report_read' %}" class="btn btn-primary"> 불러오기 </a>
+</div>
+{% endblock %}

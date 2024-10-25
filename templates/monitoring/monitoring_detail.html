@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="row justify-content-center mb-2">
+    <div class="col-md-4">
+        <div class="card" >
+            <img src="/static/images/flower_02.jpg" class="card-img-top" alt="API GATEWAY">
+            <div class="card-body">
+                <h5 class="card-title"> 모니터링 상세 </h5>
+                <p class="card-text"> {{pm10}} </p>
+                <a href="{% url 'api_gateway:detail'%}" class="btn btn-primary" class="btn btn-primary">>> 자세히</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

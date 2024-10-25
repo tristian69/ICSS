@@ -1,0 +1,72 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+    <!-- iils CSS -->
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+    <title> 통합정보연계시스템 TEST SITE </title>
+</head>
+<style>
+    @import url(http://fonts.googleapis.com/earlyaccess/notosanskr.css);
+    body{
+        font-family: 'Noto Sans KR', sans-serif;
+    }
+    .wrap{
+        display: flex;
+        justify-content: row;
+        gap:16px;
+        flex-wrap: wrap;
+    }
+    .container{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        flex:21%;
+        gap:24px;
+        border: 1px solid #EBEAEC;
+        box-shadow: 0px 2px 4px rgba(0,0,0,0.3);
+        border-radius: 16px;
+        padding: 24px;
+    }
+    .top{
+        font-weight:bold;
+        font-size:16px;
+    }
+    .bottom .name{
+        font-size:13px;
+        color:#727174;
+    }
+    .botton .date{
+        font-size:12px;
+        color:#B4B4B6;
+    }
+</style>
+<body>
+<br>
+    <a class="text-center" href="{% url 'iils:index' %}" >
+      <h1 class = "text-center" >통합정보연계시스템 TEST SITE</h1>
+    </a>
+<br>
+    <a class="btn btn-primary" href="#">
+        <img src="/static/images/kats_01.jpg" class="card-img-top" alt="HOME">
+      <h5 class = "text-center"> 국가기술표준원 </h5>
+    </a>
+<!-- 네비게이션바 -->
+{% include "navbar.html" %}
+<!-- 기본 템플릿 안에 삽입될 내용 Start -->
+{% block content %}
+{% endblock %}
+<!-- 기본 템플릿 안에 삽입될 내용 End -->
+<!-- Bootstrap JS -->
+<script src="{% static 'bootstrap.min.js' %}"></script>
+<!-- 자바스크립트 Start -->
+{% block script %}
+{% endblock %}
+<!-- 자바스크립트 End -->
+</body>
+</html>
